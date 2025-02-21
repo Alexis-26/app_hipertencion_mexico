@@ -1,8 +1,6 @@
 import flet as ft
-
-
+from frontend.home import home
 def main(page: ft.Page):
-    pass
-
+    page.add(home())
 
 ft.app(main)
