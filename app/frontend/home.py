@@ -5,7 +5,6 @@ import base64
 import random
 import requests
 import pandas as pd
-import numpy as np
 # https://datoshipertencionmexico.up.railway.app/consulta?columnas=edad,sexo
 
 # Función para realizar la consulta a la API
