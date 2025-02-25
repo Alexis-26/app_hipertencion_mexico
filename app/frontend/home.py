@@ -36,6 +36,12 @@ def generate_image(fig):
     buffer.seek(0)
     return f"data:image/png;base64,{base64.b64encode(buffer.read()).decode()}"
 
+    #funcion para convetir imagenes locales
+def load_local_image(image_path):
+    """Carga una imagen local y la convierte a base64."""
+    with open(image_path, "rb") as image_file:
+        return f"data:image/png;base64,{base64.b64encode(image_file.read()).decode()}"
+
 def crear_grafico(fig, title, xaxis_title=None, yaxis_title=None):
     """Aplica el diseño unificado a un gráfico de Plotly."""
     fig.update_layout(
@@ -56,8 +62,8 @@ def crear_grafico(fig, title, xaxis_title=None, yaxis_title=None):
 def home(page: ft.Page):
     page.bgcolor = "#303030"  # Fondo oscuro
     page.appbar = ft.AppBar(
-        title=ft.Text("Gráficas con Flet y Plotly", color="white", size=20, weight=ft.FontWeight.BOLD),
-        bgcolor="#EE0E51",
+        title=ft.Text("Hipertensión en México", color="white", size=30, weight=ft.FontWeight.BOLD),
+        bgcolor="#EE0E51", center_title=True
     )
     page.scroll = ft.ScrollMode.AUTO
     
@@ -111,37 +117,100 @@ def home(page: ft.Page):
     container_hist = ft.Container(content=img_hist, border_radius=20, bgcolor="#505458", margin=10, height=400, expand=True)
     container_box_comp = ft.Container(content=img_bar2, border_radius=20, bgcolor="#505458", height=400, margin=10, expand=True)
 
-    texto_x = ft.Container(
-        content=ft.Column([
-            ft.Text("Años", color="white", size=15, weight=ft.FontWeight.BOLD),
-        ], alignment=ft.MainAxisAlignment.CENTER),
-        margin=10,
-        padding=10,
-        alignment=ft.alignment.center_left,
-        bgcolor="#505458",
-        border_radius=20,
-        expand=True,
-        height=400
-    )
+    def contenedor(texto,ancho):
+        texto_x = ft.Container(
+            content=texto,
+            margin=10,
+            padding=10,
+            alignment=ft.alignment.center_left,
+            bgcolor="#505458",
+            border_radius=20,
+            height=400,
+            width=ancho
+        )
+        return texto_x
+    
+    def text_white(WhiteTxt):
+        return ft.Text(
+            WhiteTxt,
+            size=20,
+            weight=ft.FontWeight.BOLD,
+            color=ft.colors.WHITE,
+            max_lines=None  # Permite que el texto se expanda en varias líneas
+        )
+
+    def text_point(PointTxt):
+        return ft.Row(
+            [
+                ft.Icon(ft.icons.CIRCLE, size=14, color=ft.colors.WHITE),
+                ft.Container(content=text_white(PointTxt), expand=True)  # Permite ajuste del texto
+            ],
+            alignment=ft.MainAxisAlignment.START
+        )   
+    
+    img_corazon = ft.Image(src=load_local_image(r"src\assets\Corazon.png"), width=400, height=300)
+
+    text_hist = contenedor(ft.Column(
+            [
+                text_white("La gráfica muestra la distribución de edades tanto para personas con hipertensión, como para las que no la tienen. "),
+                text_point("Se puede ver que la mayor frecuencia de personas con hipertensión se encuentra entre los 50 y los 70 años."),
+                text_point("Se puede ver que la mayor frecuencia de personas sin hipertensión se encuentra entre los 50 y los 70 años.")
+            ],
+            spacing=5,
+            alignment=ft.MainAxisAlignment.CENTER
+        ),
+        400
+        )
+    
+    text_pie = contenedor(text_white("El gráfico muestra la proporción del promedio de hemoglobina glucosilada entre los dos grupos de riesgo de hipertensión.Los porcentajes son muy similares (49.6% y 50.4%), lo que indica que no hay una diferencia significativa en el promedio de hemoglobina glucosilada entre los pacientes con y sin hipertensión."),
+                          400
+                          )
+    
+    text_bar1 = contenedor(ft.Column(
+        [
+            text_white("Hipertensión: 1 (Riesgo de Hipertensión)"),
+            text_white("Hipertensión: 0 (No hay riesgo de Hipertensión)"),
+            text_white(" "),
+            text_white("Interpretación:\nEl gráfico compara el IMC promedio entre pacientes con y sin hipertensión.\nSe observa claramente que el IMC promedio es significativamente mayor en el grupo de pacientes con hipertensión (1) en comparación con el grupo sin hipertensión (0).\nLa barra que representa a la gente con hipertensión (1), es mucho más alta que la barra que representa a la gente sin hipertensión (0).\nEsto quiere decir que la gente que tiene hipertensión, también tiene un mayor índice de masa corporal.")
+        ],
+        spacing=5,
+        alignment=ft.MainAxisAlignment.CENTER
+    ),600)
+
+    text_bar2 = contenedor(ft.Column(
+        [
+            text_white("El gráfico permite comparar visualmente la proporción de hipertensión entre los diferentes grupos de sexo."),
+            text_point("Se observa que en los grupos de sexo 1 y 2, la proporción de personas con hipertensión es mayor que la proporción de personas sin hipertensión."),
+            text_point("Se puede ver que la proporción de gente con hipertensión y sin hipertensión es muy similar en los grupos de sexo 1 y 2."),
+            text_white(" "),
+            text_white("Sexo: 1 = Hombre, 2 = Mujer")
+        ],
+        spacing=5,
+        alignment=ft.MainAxisAlignment.CENTER
+    ),600)
+
 
     # Widget creado
     mas = ft.Column([ft.Row([
         container_hist, 
-        texto_x,
+        text_hist,
     ]
     ,alignment=ft.MainAxisAlignment.START
     ),
     ft.Row([
         container_pie,
-        texto_x
+        img_corazon,
+        text_pie    
     ]),
     ft.Row([
-        container_box_comp,
-        texto_x
+        text_bar1,
+        container_box_comp
+        
     ]),
     ft.Row([
+        text_bar2,
         container_bar,
-        texto_x
+        
     ]),
     ]
     ,alignment=ft.MainAxisAlignment.START)

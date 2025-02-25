@@ -3,7 +3,7 @@ from frontend.home import home
 
 
 def main(page: ft.Page): 
-    page.title = "grafica flet"
+    page.title = "Hipertensión en México"
     page.bgcolor = "#363540"
     
     # Agregar elementos a la página
