@@ -120,29 +120,29 @@ def home(page: ft.Page):
         texto_x = ft.Container(
             content=texto,
             margin=10,
-            padding=10,
+            padding=15,
             alignment=ft.alignment.center_left,
             bgcolor="#505458",
             border_radius=20,
             height=400,
-            width=ancho
+            width=ancho,
         )
         return texto_x
     
-    def text_white(WhiteTxt):
+    def text_white(WhiteTxt,tamano):
         return ft.Text(
             WhiteTxt,
-            size=20,
+            size=tamano,
             weight=ft.FontWeight.BOLD,
             color=ft.colors.WHITE,
             max_lines=None  # Permite que el texto se expanda en varias líneas
         )
 
-    def text_point(PointTxt):
+    def text_point(PointTxt,tamano):
         return ft.Row(
             [
                 ft.Icon(ft.icons.CIRCLE, size=14, color=ft.colors.WHITE),
-                ft.Container(content=text_white(PointTxt), expand=True)  # Permite ajuste del texto
+                ft.Container(content=text_white(PointTxt,tamano), expand=True)  # Permite ajuste del texto
             ],
             alignment=ft.MainAxisAlignment.START
         )   
@@ -151,9 +151,9 @@ def home(page: ft.Page):
 
     text_hist = contenedor(ft.Column(
             [
-                text_white("La gráfica muestra la distribución de edades tanto para personas con hipertensión, como para las que no la tienen. "),
-                text_point("Se puede ver que la mayor frecuencia de personas con hipertensión se encuentra entre los 50 y los 70 años."),
-                text_point("Se puede ver que la mayor frecuencia de personas sin hipertensión se encuentra entre los 50 y los 70 años.")
+                text_white("La gráfica muestra la distribución de edades tanto para personas con hipertensión, como para las que no la tienen. ",20),
+                text_point("Se puede ver que la mayor frecuencia de personas con hipertensión se encuentra entre los 50 y los 70 años.",20),
+                text_point("Se puede ver que la mayor frecuencia de personas sin hipertensión se encuentra entre los 50 y los 70 años.",20)
             ],
             spacing=5,
             alignment=ft.MainAxisAlignment.CENTER
@@ -161,32 +161,32 @@ def home(page: ft.Page):
         400
         )
     
-    text_pie = contenedor(text_white("El gráfico muestra la proporción del promedio de hemoglobina glucosilada entre los dos grupos de riesgo de hipertensión.Los porcentajes son muy similares (49.6% y 50.4%), lo que indica que no hay una diferencia significativa en el promedio de hemoglobina glucosilada entre los pacientes con y sin hipertensión."),
+    text_pie = contenedor(text_white("El gráfico muestra la proporción del promedio de hemoglobina glucosilada entre los dos grupos de riesgo de hipertensión.Los porcentajes son muy similares (49.6% y 50.4%), lo que indica que no hay una diferencia significativa en el promedio de hemoglobina glucosilada entre los pacientes con y sin hipertensión.",20),
                           400
                           )
     
     text_bar1 = contenedor(ft.Column(
         [
-            text_white("Hipertensión: 1 (Riesgo de Hipertensión)"),
-            text_white("Hipertensión: 0 (No hay riesgo de Hipertensión)"),
-            text_white(" "),
-            text_white("Interpretación:\nEl gráfico compara el IMC promedio entre pacientes con y sin hipertensión.\nSe observa claramente que el IMC promedio es significativamente mayor en el grupo de pacientes con hipertensión (1) en comparación con el grupo sin hipertensión (0).\nLa barra que representa a la gente con hipertensión (1), es mucho más alta que la barra que representa a la gente sin hipertensión (0).\nEsto quiere decir que la gente que tiene hipertensión, también tiene un mayor índice de masa corporal.")
+            text_white("Hipertensión: 1 (Riesgo de Hipertensión)",17),
+            text_white("Hipertensión: 0 (No hay riesgo de Hipertensión)",17),
+            text_white(" ",17),
+            text_white("Interpretación:\nEl gráfico compara el IMC promedio entre pacientes con y sin hipertensión.\nSe observa claramente que el IMC promedio es significativamente mayor en el grupo de pacientes con hipertensión (1) en comparación con el grupo sin hipertensión (0).\nLa barra que representa a la gente con hipertensión (1), es mucho más alta que la barra que representa a la gente sin hipertensión (0).\nEsto quiere decir que la gente que tiene hipertensión, también tiene un mayor índice de masa corporal.",17)
         ],
         spacing=5,
         alignment=ft.MainAxisAlignment.CENTER
-    ),600)
+    ),700)
 
     text_bar2 = contenedor(ft.Column(
         [
-            text_white("El gráfico permite comparar visualmente la proporción de hipertensión entre los diferentes grupos de sexo."),
-            text_point("Se observa que en los grupos de sexo 1 y 2, la proporción de personas con hipertensión es mayor que la proporción de personas sin hipertensión."),
-            text_point("Se puede ver que la proporción de gente con hipertensión y sin hipertensión es muy similar en los grupos de sexo 1 y 2."),
-            text_white(" "),
-            text_white("Sexo: 1 = Hombre, 2 = Mujer")
+            text_white("El gráfico permite comparar visualmente la proporción de hipertensión entre los diferentes grupos de sexo.",20),
+            text_point("Se observa que en los grupos de sexo 1 y 2, la proporción de personas con hipertensión es mayor que la proporción de personas sin hipertensión.",20),
+            text_point("Se puede ver que la proporción de gente con hipertensión y sin hipertensión es muy similar en los grupos de sexo 1 y 2.",20),
+            text_white(" ",20),
+            text_white("Sexo: 1 = Hombre, 2 = Mujer",20)
         ],
         spacing=5,
         alignment=ft.MainAxisAlignment.CENTER
-    ),600)
+    ),700)
 
 
     # Widget creado
