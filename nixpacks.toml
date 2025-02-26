@@ -1,2 +1,2 @@
 [phases.setup]
-aptPkgs = ["libgtk-3-0"]
+aptPkgs = ["libgtk-3-0", "libgstreamer1.0-0"]
